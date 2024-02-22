@@ -1,0 +1,56 @@
+{% extends "layout.html.twig" %}
+
+{% block header %}
+    <header>
+    <h1>The league</h1>
+        <menu>
+            <li>
+                <a href="">Les teams</a>
+            </li>
+            <li>
+                <a href="">Les players</a>
+            </li>
+            <li>
+                <a href="">Les matchs</a>
+            </li>
+        </menu>
+        <h2>Tout sur la league</h2>
+        <p>Les players, les teams et l'actu des matchs</p>
+    </header>
+{% endblock %}
+
+{% block main %}
+    <main>
+        <section>
+            <h3>La team à la une</h3>
+            <article>
+                <h4>{{ team.name }}</h4>
+                <img src="{{ team.logo.getUrl() }}" alt="{{ team.logo.getAlt() }}"/>
+            </article>
+            {% for player in players %}
+            <article>
+                <img src="{{ player.portrait.getUrl() }}" alt="{{ player.portrait.getAlt() }}"/>
+                <h4>{{ player.nickname }}</h4>
+            </article>
+            {% endfor %}
+        </section>
+        <section>
+            <h3>Les players à la une</h3>
+            {% for topPlayer in topPlayers %}
+            <article>
+                <img src="{{ topPlayer.portrait.getUrl() }}" alt="{{ topPlayer.portrait.getAlt() }}"/>
+                <h4>{{ topPlayer.nickname }}</h4>
+            </article>
+            {% endfor %}
+        </section>
+        <section>
+            <h3>Le dernier match</h3>
+            {% for topPlayer in topPlayers %}
+            <article>
+                <img src="{{ topPlayer.portrait.getUrl() }}" alt="{{ topPlayer.portrait.getAlt() }}"/>
+                <h4>{{ topPlayer.nickname }}</h4>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+{% endblock %}
