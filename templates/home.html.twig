@@ -34,23 +34,5 @@
             </article>
             {% endfor %}
         </section>
-        <section>
-            <h3>Les players à la une</h3>
-            {% for topPlayer in topPlayers %}
-            <article>
-                <img src="{{ topPlayer.portrait.getUrl() }}" alt="{{ topPlayer.portrait.getAlt() }}"/>
-                <h4>{{ topPlayer.nickname }}</h4>
-            </article>
-            {% endfor %}
-        </section>
-        <section>
-            <h3>Le dernier match</h3>
-            {% for topPlayer in topPlayers %}
-            <article>
-                <img src="{{ topPlayer.portrait.getUrl() }}" alt="{{ topPlayer.portrait.getAlt() }}"/>
-                <h4>{{ topPlayer.nickname }}</h4>
-            </article>
-            {% endfor %}
-        </section>
     </main>
-{% endblock %}
+{% endblock %} 

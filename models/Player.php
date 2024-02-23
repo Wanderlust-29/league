@@ -6,9 +6,9 @@ class Player
     private string $nickname;
     private string $bio;
     private Media $portrait;
-    private int $team;
+    private Team $team;
 
-    public function __construct(string $nickname, string $bio, Media $portrait, int $team)
+    public function __construct(string $nickname, string $bio, Media $portrait, Team $team)
     {
         $this->nickname = $nickname;
         $this->bio = $bio;
@@ -83,7 +83,7 @@ class Player
     /**
      * @return int
      */
-    public function getTeam(): int
+    public function getTeam(): Team
     {
         return $this->team;
     }
@@ -91,7 +91,7 @@ class Player
     /**
      * @param int $team
      */
-    public function setTeam(int $team): void
+    public function setTeam(Team $team): void
     {
         $this->team = $team;
     }

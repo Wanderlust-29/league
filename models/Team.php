@@ -39,7 +39,7 @@ class Team
     }
 
     /**
-     * @param string $url
+     * @param string $name
      */
     public function setName(string $name): void
     {

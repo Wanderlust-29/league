@@ -4,55 +4,50 @@ class TeamManager extends AbstractManager
 {
     public function findFirst() : ?Team
     {
-        $query = $this->db->prepare('SELECT teams.*, media.url AS media_url, media.alt AS media_alt FROM teams 
-        JOIN media ON media.id= teams.logo LIMIT 1');
+        $query = $this->db->prepare('SELECT * FROM teams LIMIT 1');
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
 
-        if ($result) {
-            $logo = new Media($result["media_url"], $result["media_alt"]);
-            $team = new Team($result["name"], $result["description"], $logo);
-            $team->setId($result["id"]);
-            return $team;
-        } else {
-            return null;
-        }
+        $mm = new MediaManager();
+        $logo = $mm->findOne($result["logo"]);
+
+        $team = new Team($result["name"], $result["description"], $logo);
+        $team->setId($result["id"]);
+        return $team;
     }
 
-    public function findAll() : array
+    public function findOne(int $id) : ?Team
     {
-        $query = $this->db->prepare('SELECT teams.*, media.url AS media_url, media.alt AS media_alt FROM teams 
-        JOIN media ON media.id = teams.logo');
+        $query = $this->db->prepare('SELECT * FROM teams
+                                    WHERE id=:id');
+        $parameters = [
+            "id" => $id
+        ];
+        $query->execute($parameters);
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        
+        $mm = new MediaManager();
+        $logo = $mm->findOne($result["logo"]);
+
+        $team = new Team($result["name"], $result["description"], $logo);
+        $team->setId($result["id"]);
+        return $team;
+    }
+
+    public function findAll() : ?array
+    {
+        $query = $this->db->prepare('SELECT * FROM teams');
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $teams = [];
+        foreach($result as $item) {
+        $mm = new MediaManager();
+        $logo = $mm->findOne($item["logo"]);
 
-        foreach($result as $item)
-        {
-            $logo = new Media($item["media_url"], $item["media_alt"]);
-            $team = new Team($item["name"], $item["description"], $logo);
-            $team->setId($item["id"]);
-            $teams[] = $team;
-        }
-
-        return $teams;
+        $team = new Team($item["name"], $item["description"], $logo);
+        $team->setId($item["id"]);
+        $teams[] = $team;
     }
-    public function lastMatch() : array
-    {
-        $query = $this->db->prepare('SELECT teams.*, media.url AS media_url, media.alt AS media_alt FROM teams 
-        JOIN media ON media.id = teams.logo');
-        $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        $teams = [];
-
-        foreach($result as $item)
-        {
-            $logo = new Media($item["media_url"], $item["media_alt"]);
-            $team = new Team($item["name"], $item["description"], $logo);
-            $team->setId($item["id"]);
-            $teams[] = $team;
-        }
-
-        return $teams;
+    return $teams;
     }
 }
