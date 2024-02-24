@@ -2,7 +2,7 @@
 
 class GameManager extends AbstractManager
 {
-    public function findOne(int $id) : ? Game
+    public function findOne(int $id) : ?Game
     {
         $query = $this->db->prepare('SELECT * FROM games
                                     WHERE id=:id');
@@ -45,7 +45,7 @@ class GameManager extends AbstractManager
     }
     
 
-    public function findLastGame() : ? Game {
+    public function findLastGame() : ?Game {
         $query = $this->db->prepare('SELECT * FROM games
                                     ORDER BY date DESC LIMIT 1');
         $query->execute();

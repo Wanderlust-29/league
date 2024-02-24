@@ -48,54 +48,33 @@ class PlayerManager extends AbstractManager
             $players[]= $player;
         }
         return $players;
-
-
     }
-    // public function findFirstTeam() : array
-    // {
-    //     $query = $this->db->prepare('SELECT * FROM players 
-    //                                 WHERE team = 1');
-    //     $query->execute();
-    //     $result = $query->fetchAll(PDO::FETCH_ASSOC);
-    //     $players = [];
+    
+    public function findPlayerOfFirstTeam() : array
+    {
+        $query = $this->db->prepare('SELECT * FROM players WHERE team = 1');
 
-    //     foreach($result as $item)
-    //     {
-    //         $mm = new MediaManager();
-    //         $portrait = $mm->findOne($item["portrait"]);
-    //         $newPortrait = new Media($portrait["url"], $portrait["alt"]);
-            
-    //         $tm = new TeamManager();
-    //         $team = $tm->findOne($item["team"]);
-    //         $logo = $mm->findOne($team["logo"]);
-    //         $newTeam = new Team($team["name"], $team["description"], $logo);
-    //         $newTeam->setId($team["id"]);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $players =[];
 
-    //         $player = new Player($item["nickname"], $item["bio"], $newPortrait, $newTeam);
-    //         $player->setId($item["id"]);
-    //         $players[] = $player;
-    //     }
-    //     return $players;
-    // }
+        foreach ($result as $item){
+            $mm = new MediaManager();
+            $portrait = $mm->findOne($item["portrait"]);
+            $newPortrait = new Media($portrait->getUrl(), $portrait->getAlt());
+    
+            $tm = new TeamManager();
+            $team = $tm->findOne($item["team"]);
+    
+            $player = new Player($item["nickname"], $item["bio"], $newPortrait, $team);
+            $player->setId($item["id"]);
+            $players[]= $player;
+        }
+        return $players;
+    }
+
     // public function findTopThreePlayer() : array
     // {
-    //     $query = $this->db->prepare('SELECT players.*, media.url AS media_url, media.alt AS media_alt 
-    //                                 FROM player_performance
-    //                                 JOIN players ON players.id = player_performance.player
-    //                                 JOIN media ON media.id = players.portrait 
-    //                                 ORDER BY player_performance.points DESC
-    //                                 LIMIT 3');
-    //     $query->execute();
-    //     $result = $query->fetchAll(PDO::FETCH_ASSOC);
-    //     $players = [];
-
-    //     foreach($result as $item)
-    //     {
-    //         $portrait = new Media($item["url"], $item["alt"]);
-    //         $player = new Player($item["nickname"], $item["bio"], $portrait, $item["team"]);
-    //         $player->setId($item["id"]);
-    //         $players[] = $player;
-    //     }
-    //     return $players;
+    
     // }
 }

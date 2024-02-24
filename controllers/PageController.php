@@ -12,17 +12,14 @@ class PageController extends AbstractController
         $players = $pm->findAll();
         $games = $gm->findAll();
 
-        $team = $tm->findFirst();
-
         dump($teams);
         dump($players);
         dump($games);
 
         $this->render("home.html.twig", [
-            // "teams" => $teams,
-            // "players" => $players,
-            // "games" => $games,
-            "team" => $team
+            "teams" => $teams,
+            "players" => $players,
+            "games" => $games
         ]);
     }
 }

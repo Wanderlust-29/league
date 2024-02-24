@@ -21,18 +21,21 @@
 
 {% block main %}
     <main>
-        <section>
-            <h3>La team à la une</h3>
-            <article>
-                <h4>{{ team.name }}</h4>
-                <img src="{{ team.logo.getUrl() }}" alt="{{ team.logo.getAlt() }}"/>
-            </article>
-            {% for player in players %}
-            <article>
-                <img src="{{ player.portrait.getUrl() }}" alt="{{ player.portrait.getAlt() }}"/>
-                <h4>{{ player.nickname }}</h4>
-            </article>
-            {% endfor %}
-        </section>
+        {% for team in teams %}
+            {% if loop.first %}
+                <section>
+                    <h2>{{ team.name }}</h2>
+                    <img src='{{ team.logo.getUrl() }}' alt='{{ team.logo.getAlt() }}' />
+                    {% for player in players %}
+                        {% if player.team.id == 1 %}
+                            <article>
+                                <h2>{{ player.nickname }}</h2>
+                                <img src='{{ player.portrait.getUrl() }}' alt='{{ player.portrait.getAlt() }}' />
+                            </article>
+                        {% endif %}
+                    {% endfor %}
+                </section>
+            {% endif %}
+        {% endfor %}
     </main>
-{% endblock %} 
+{% endblock %}
