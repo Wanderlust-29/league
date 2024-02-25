@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+  background-color: #0B132B;
+}
+
+main .featured {
+  border: 1px #1C2541 solid;
+  padding: 5em 5em 0 5em;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 5em auto;
+}
+main .featured img {
+  width: 100%;
+  height: auto;
+}
+main .featured img:first-of-type {
+  grid-column: 1;
+  grid-row: 1/2;
+}
+main .featured h2 {
+  grid-column: 2;
+  grid-row: 1;
+}
+main .featured article {
+  grid-row: 2;
+}
+main .featured .players {
+  grid-row: 2;
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(3fr);
+  grid-template-rows: 10em auto;
+}
+main .featured .players h3 {
+  grid-column: 1/4;
+  grid-row: 1;
+}
+
+/*# sourceMappingURL=style.css.map */
